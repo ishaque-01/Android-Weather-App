@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme colors -->
+    <color name="primaryColor">#2196F3</color> <!-- Blue -->
+    <color name="primaryDarkColor">#1976D2</color> <!-- Dark Blue -->
+    <color name="accentColor">#FFC107</color> <!-- Amber -->
+    <color name="textColorPrimary">#000000</color> <!-- Black -->
+    <color name="textColorSecondary">#757575</color> <!-- Gray -->
+    <color name="backgroundColor">#518ECB</color> <!-- Dark Blue -->
+
+    <!-- Dark theme colors -->
+    <color name="primaryColorNight">#1565C0</color> <!-- Darker Blue -->
+    <color name="primaryDarkColorNight">#0D47A1</color> <!-- Very Dark Blue -->
+    <color name="accentColorNight">#FFA000</color> <!-- Dark Amber -->
+    <color name="textColorPrimaryNight">#FFFFFF</color> <!-- White -->
+    <color name="textColorSecondaryNight">#BDBDBD</color> <!-- Light Gray -->
+    <color name="backgroundColorNight">#518ECB</color> <!-- Dark Gray -->
+</resources>
