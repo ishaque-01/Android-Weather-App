@@ -2,6 +2,8 @@ package com.example.weatherapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,11 +27,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
 
-    private String urlStart = "https://api.openweathermap.org/data/2.5/weather?q=";
-    private String urlEnd = "&units=metric&appid=";
-    private String apiKey = "44b414574836608127d0febe4e936bb3";
+    private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    private static final String END_URL = "&units=metric&appid=";
+    private static final String API_KEY = BuildConfig.WEATHER_API_KEY;
     EditText cityName;
     TextView city, temp, condition, feel, humidityText, speedText;
     ImageView imageView;
@@ -71,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     public void showWeather() {
         if (!cityName.getText().toString().isEmpty()) {
             editor.putString("str", cityName.getText().toString());
             editor.apply();
 
-            String finalURL = urlStart + cityName.getText().toString() + urlEnd + apiKey;
+            String finalURL = BASE_URL + cityName.getText().toString() + END_URL + API_KEY;
             RequestQueue requestQueue;
             requestQueue = Volley.newRequestQueue(this);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, finalURL, null, new Response.Listener<JSONObject>() {
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(MainActivity.this, "Enter Correct City!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }
             });
             requestQueue.add(jsonObjectRequest);
@@ -113,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Enter City Name!", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void updateInApp(String cityName, double temperature, double feelsLike, int humidity, double speed, String cond) {
         city.setText(cityName);
         String value = String.valueOf(temperature) + "°C";
